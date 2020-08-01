@@ -5,15 +5,17 @@ import CoachBg from '../../assets/coach.png';
 
 export default class Login extends Component {
     render(){
+        var config = {
+            title: this.props.title,
+            name: this.props.name
+        };
         const modal = {
             color: "white",
-            backgroundColor: '#fff',
+            backgroundColor: '#FFF',
             position: "absolute",
-            width:'60vw',
-            height:'60vh',
+            width:"60vw",
+            height:"60vh",
             zIndex:2,
-            fontFamily: "Arial",
-            height:"25px",
             fontFamily:'Lato',
             fontSize: 15,
             top:'25%',
@@ -28,17 +30,19 @@ export default class Login extends Component {
               marginBottom: "50px"
           }; 
         return(
-            <div style={modal}>
+            <div style={modal} >
                 <div style={{float:'left'}}> 
-                <img src={CoachBg} style={{height:'60vh', margin:'auto'}}></img>
+                
+                
+                <img src={this.props.title} style={{height:'60vh', margin:'auto'}}></img>
                 <div style={{height:'60vh',width:'36.6vw', margin:'auto',zIndex:3, position:'absolute',top:'0%',backgroundColor:'#333',opacity:'0.7'}}>
                     <div style={{fontFamily:'Roboto', fontSize:'40px', width:'40%', textAlign:'left', margin:'15% 10% 10% 10%'}}>Welcome to Care Coach</div> 
                     <div style={{fontFamily:'Lato', fontSize:'20px', width:'50%', textAlign:'left', margin:'0 0 0 10%'}}>Professional home for all those who are committed to improving communication and relationships in healthcare. Welcoming researchers, educators, clinicians, patients, patient advocates, and all members of the healthcare team.</div>
                     </div>
                     </div>
-                    <div style={{float:'right', height:'60vh', backgroundColor:'#FFF', paddingLeft:'4.25%'}}>
-                        <div style={{color:'#000', fontFamily:'Roboto', fontSize:'30px', marginRight:'10vw', marginTop:'10vh'}}>Login as Coach</div>
-                        <div style={{fontSize:'20px'}}>
+                    <div style={{float:'right', height:'60vh', backgroundColor:'#FFF', paddingLeft:'0%'}}>
+                        <div style={{color:'#000', fontFamily:'Roboto', fontSize:'30px', marginLeft:'-25vw', marginTop:'10vh'}}>Login as {this.props.name}</div>
+                        <div style={{fontSize:'20px', marginLeft:'-20vw'}}>
                         <form style={{color:'#000', textAlign:'left',marginTop:'5%'}}>
                         <label for="fname">Email ID:</label><br/>
                         <input style={{width:'70%', height:'30px'}} type="text" id="fname" name="fname"/><br/>

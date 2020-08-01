@@ -5,9 +5,9 @@ import Header from '../../../components/header';
 import Login from '../../../components/login';
 
 import Bg from '../../../assets/bg.png';
-import CoachBg from '../../../assets/coach.png';
+import TraineeBg from '../../../assets/trainee.png';
 
-export default class Coach extends Component {
+export default class Trainee extends Component {
     render(){
         const header = {
             color: "white",
@@ -39,7 +39,7 @@ export default class Coach extends Component {
             <div>
             <Header></Header>    
             <div style={{backgroundColor:'#CCC', height:'93.25vh', backgroundImage:`url(${Bg})`, backgroundSize:'100% auto', backgroundRepeat:'no-repeat', fontFamily:'Lato'}}>
-           <Login title={CoachBg} name="Coach"></Login>
+           <Login title={TraineeBg} name="Trainee"></Login>
             </div>
             </div>
         );
