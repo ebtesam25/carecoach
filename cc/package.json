@@ -3,14 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "alo-timer": "^2.0.3",
     "canvid": "^1.6.0",
+    "fluent-ffmpeg": "^2.1.2",
     "react": "^16.13.1",
+    "react-audio-player": "^0.13.0",
     "react-dom": "^16.13.1",
+    "react-gif-player": "https://github.com/ebtesam25/react-gif-player/tarball/master",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.2",
+    "react-sound": "^1.2.0",
+    "react-webcam": "^5.2.0",
+    "readline-sync": "^1.4.10",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "xmlbuilder": "^15.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
