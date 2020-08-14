@@ -1,85 +1,90 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import ReactAudioPlayer from 'react-audio-player';
 import Webcam from "react-webcam";
-import GifPlayer from 'react-gif-player';
+import Player from 'react-player'
+import { ReactMic } from 'react-mic';
 
 import Header from '../../components/authenticated/header'
 import Avatar from '../../assets/avatar.gif'
 import Still from '../../assets/still.jpg'
-import Track from '../../TTSOutput.wav'
+import mic from '../../assets/mic.svg'
+import micd from '../../assets/micd.svg'
 
 var rdata = [];
 var i=0;
-      var j=0;
+var j=0;
+const mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+
+
+var n = 0;
 export default class Train extends Component {
+    constructor(props) {
+        super(props);
+      
+    }
     state = {
         data: [],
         playing:false,
         loaded: false,
         duration: 0,
-        curTime : new Date().getMilliseconds()
+        start: false,
+        vid: '',
+        n: 0,
+        record: false,
     };
     
+
+    onTextCallback(text) {
+        console.log('Text received:', text);
+        this.setState({
+          content: text,
+          words: text.split(/\S+/g).length
+        })
+        console.log('State:', this.state);
+      }
+  
+      
+
+    
+    
+    getPatientLine(){
+        let _url='http://127.0.0.1:4001/patient/'+this.state.n
+        console.log(_url)
+       this.setState({vid:_url})  
+       this.setState({n:n}) 
+       this.setState({loaded:true})
+       this.setState({start:true})
+    }
    
     
     componentDidMount(){
-        fetch('http://127.0.0.1:4000/teapot').
-        then(response => response.json())
-          .then(data => {
-                
-                rdata = data.silence
-                this.setState({data:data.silence}); 
-                
-                this.setState({duration:data.dur})
-                this.setState({loaded:true});
-            
-          }).then(()=>{
-            var start = new Date().getTime(),
-            time = 0,
-            elapsed = 0.0;
-            setTimeout(instance=>{
-              time += 100;
-
-              elapsed = Math.floor(time);
-              if(Math.round(elapsed) == elapsed) { elapsed += 0; }
-              console.log(elapsed)
-              i = elapsed;
-            if(elapsed==rdata[j][0]){
-                this.setState({playing:false});
-      
-            }
-            else if(elapsed==rdata[j][1]){
-              console.log("Play")
-                this.setState({playing:true});
-                j=j++;
-      
-            }
-
-              var diff = (new Date().getTime() - start) - time;
-              setTimeout(instance, (100 - diff));
-            }, this.state.duration*100);
-            
-                
-            }
-          )
-            
-          .catch(err=>console.log(err));
-          console.log("set");
-         
-          
-        }
+        this.getPatientLine()
        
-       
-        
-          
+    }
+    startRecording = () => {
+        this.setState({
+          record: true
+        });
+      }
     
-
-        
+      stopRecording = () => {
+        this.setState({
+          record: false
+        });
+      }
     
+      onData(recordedBlob) {
+        console.log('chunk of real-time data is: ', recordedBlob);
+      }
+    
+      onStop(recordedBlob) {
+        console.log('recordedBlob is: ', recordedBlob.blobURL);
+      }
+      
    
   
     render(){
+        
         
         if(!this.state.loaded){
             return(
@@ -96,35 +101,60 @@ export default class Train extends Component {
             
             <div>
                 <Header/>
-                {this.state.playing &&
-               <img src={Avatar}  style={{position:'absolute', marginTop:'10%',marginLeft:'-50%',height:'50vh'}} ></img>
-                }
-                 {!this.state.playing &&
-               <img src={Still}  style={{position:'absolute', marginTop:'10%',marginLeft:'-50%',height:'50vh'}} ></img>
+                <div  style={{position: 'relative', paddingTop:'90vh', marginTop:'1vh'}}>
+                 {!this.state.loaded &&
+                 <div>Your training will begin shortly
+                  
+                 </div>
+                 
+                 }
+                 
+                 {this.state.loaded && this.state.start &&
+                 <div>
+                 <Player 
+                 url={this.state.vid}
+                 style={{position:'absolute', top:0, left:0, zIndex:2}}
+                 playing={true}
+                 width='100%'
+                 height='100%'
+                 onEnded={()=>{this.startRecording();this.setState({start:false});}}
+                 />
+                 
+                 </div>
                   }
-             { /*  <GifPlayer 
-                gif={Avatar} 
-                still={Still} 
-                style={{position:'absolute', marginTop:'10%',marginLeft:'-50%',height:'50vh'}} 
-                autoplay
-                pauseRef={playing => this.pauseGif = playing}
-                onTogglePlay={playing => this.setState({ playing })}/>
-                <button
-                style={{ fontSize: 30 }}
-                disabled={!this.state.playing}
-             ></button>*/}
-                <button style={{alignSelf:'center'}}>Start Training</button>
-                {this.state.loaded &&
-                <ReactAudioPlayer
-                src={Track}
-                controls
-                autoPlay
-                style={{position:'absolute', marginTop:'30%', marginLeft:'-45%',}}
+                  
+                  <div style={{position:'absolute', zIndex:4, bottom:0,left:0, backgroundColor:"#FFF", width:'100vw'}}>
+                  
+                   
+                        {!this.state.record &&
+                         <button onClick={this.startRecording} type="button"  style={{backgroundColor:'transparent', border:'none', position:'absolute', zIndex:7, top:'30%', left:'50%'}}><img src={micd} style={{height:25, width:25}}></img></button>
+                        }
+                        {this.state.record &&
+                         <button onClick={this.stopRecording} type="button" style={{backgroundColor:'transparent', border:'none', position:'absolute', zIndex:7, top:'30%', left:'50%'}}><img src={mic} style={{height:25, width:25}}></img></button>
+                         }
+                          <ReactMic
+                       width={500}
+                        record={this.state.record}
+                        className="sound-wave"
+                        onStop={this.onStop}
+                        onData={this.onData}
+                        strokeColor="teal"
+                        backgroundColor="#fff"
+                        mimeType="audio/mp3" />
+                      </div>
+                  {this.state.loaded &&
+                  <div>
+                  <img src={Still} style={{position:'absolute',top:0, left:0, zIndex:1, width:'auto', height:'90vh',marginLeft:'9%'}} onClick={()=>{n++;this.setState({n:n});this.getPatientLine()}}></img>   
+                  
+                  <Webcam
+                  mirrored
+                style={{position:'absolute', top:'2%', left:'10%', height:'30vh', zIndex:2}}
                 />
-          }
-                <Webcam
-                style={{position:'absolute', marginTop:'10%', marginLeft:'-15%', height:'50vh'}}
-                />
+                </div>
+                }
+                  
+            </div>
+                
          
             </div>
         )

@@ -75,7 +75,8 @@ async function main() {
         throw new Error('Environment variable for your subscription key is not set.')
     };
     // Prompts the user to input text.
-    const text = readline.question('What would you like to convert to speech? ');
+   // const text = readline.question('What would you like to convert to speech? ');
+   
 
     try {
         const accessToken = await getAccessToken(subscriptionKey);

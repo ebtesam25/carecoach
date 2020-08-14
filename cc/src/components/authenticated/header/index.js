@@ -39,7 +39,7 @@ export default class Header extends Component {
                 <li style={items}><a style={{color:"#FFFF", textDecoration:'none'}} href="#">COVID Resources</a></li>
                 </ul>
                 <ul style={menuR} >
-                <li style={items}><a style={{color:"#FFFF", textDecoration:'none'}} href="#">Welcome, Mark!</a></li>
+                <li style={items}><a style={{color:"#FFFF", textDecoration:'none'}} href="#">Welcome, Kamela!</a></li>
                 </ul>
             </div>
         );

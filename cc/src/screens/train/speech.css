@@ -1,0 +1,51 @@
+.App {}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  text-align: left;
+  background-color: #222;
+  padding: 40px 20px;
+  color: white;
+  margin-bottom: 25px;
+}
+
+.App-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 25px;
+  right: 0;
+  background-color: #eee;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-subtitle {
+  font-size: 1em;
+}
+
+.react-speech {
+  margin: 0 auto;
+}
+
+.result-container {
+  background-color: #eeeeee;
+  padding: 20px;
+  min-height: 150px;
+  border: thin solid #cdcdcd;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

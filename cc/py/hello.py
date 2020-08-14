@@ -8,12 +8,14 @@ import sys
 import requests
 import time
 import pymongo
-from pathlib import Path\
+from pathlib import Path
+
+
 
 myapp = Flask(__name__)
 CORS(myapp)
 
-data_folder = Path("../src")
+data_folder = Path("/")
 
 file_to_open = data_folder/"TTSOutput.wav"
 track = AudioSegment.from_wav("TTSOutput.wav")
@@ -28,6 +30,8 @@ def notes():
     arr = detect_silence(track)
     print(json.dumps(arr))
     return {'silence':arr,'dur':track.duration_seconds}
+
+
 
 if __name__ == '__main__':
     myapp.run(port=4000)

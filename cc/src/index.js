@@ -10,6 +10,7 @@ import Coach from './screens/login/coach';
 import Trainee from './screens/login/trainee';
 import Admin from './screens/login/admin';
 import Train from './screens/train';
+import Speech from './screens/train/speech';
 
 ReactDOM.render(
   <Router>
@@ -19,7 +20,7 @@ ReactDOM.render(
     <Route exact path="/trainee" component={Trainee} />
     <Route exact path="/admin" component={Admin} />
     <Route exact path="/train" component={Train} />
-    
+    <Route exact path="/speech" component={Speech} />
     
   </div>
 </Router>,

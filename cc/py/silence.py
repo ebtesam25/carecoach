@@ -3,7 +3,7 @@ import itertools
 from pydub.utils import db_to_float
 
 
-def detect_silence(audio_segment, min_silence_len=600, silence_thresh=-26, seek_step=10):
+def detect_silence(audio_segment, min_silence_len=800, silence_thresh=-26, seek_step=1):
     seg_len = len(audio_segment)
 
     # you can't have a silent portion of a sound that is longer than the sound
@@ -61,7 +61,7 @@ def detect_silence(audio_segment, min_silence_len=600, silence_thresh=-26, seek_
     return silent_ranges
 
 
-def detect_nonsilent(audio_segment, min_silence_len=500, silence_thresh=-20, seek_step=1):
+def detect_nonsilent(audio_segment, min_silence_len=800, silence_thresh=-26, seek_step=1):
     silent_ranges = detect_silence(audio_segment, min_silence_len, silence_thresh, seek_step)
     len_seg = len(audio_segment)
 
