@@ -27,5 +27,15 @@ def sendvideo(n):
     filename=f"{n}.mp4"
     return send_from_directory("",filename=filename, as_attachment=True)
 
+@myapp.route("/audio",methods=['POST'])
+def getaudio():
+    
+    f = request.files['audio-file']
+    f.save(secure_filename(f.filename))
+    return 'file uploaded successfully'
+
 if __name__ == '__main__':
     myapp.run(port=4001, debug=True)
+
+
+    
